@@ -437,7 +437,6 @@ def _flash_attention_kernel(
     block_b = q_tile_ref.shape[0]
     # If we're not going to tile the softmax, then we can avoid a bunch of VPU ops.
     if kwargs["block_k"] == kwargs["kv_seq_len"]:
-        assert False
         kernel = _flash_attention_kernel_single_batch_single_step
     else:
         kernel = _flash_attention_kernel_single_batch
@@ -729,7 +728,6 @@ def _flash_attention_impl(
             PatchBlockSpec(lambda *_: (0, 0, 0, 0), acc_scratch.shape),
         ]
     else:
-        assert False
         out_shape += [None, None, None]
         out_specs += [None, None, None]
 
